@@ -1,10 +1,10 @@
 FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND="noninteractive"
+
 ARG USER_NAME
 ARG USER_UID
 ARG USER_GID
-
-ENV DEBIAN_FRONTEND="noninteractive"
 
 RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends \
@@ -16,7 +16,9 @@ RUN apt-get update && \
         libwxgtk3.0-gtk3-dev && \
     rm -rf /var/lib/apt/lists/*
 
+# https://code.visualstudio.com/docs/remote/containers-advanced#_creating-a-nonroot-user
+# https://github.com/moby/moby/issues/5419#issuecomment-41478290
 RUN groupadd --gid $USER_GID $USER_NAME && \
-    useradd --uid $USER_UID --gid $USER_GID -m $USER_NAME
+    useradd --no-log-init --uid $USER_UID --gid $USER_GID --create-home $USER_NAME
 
 USER $USER_NAME
