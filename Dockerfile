@@ -15,7 +15,8 @@ RUN apt-get update && \
         libncurses5-dev \
         libncursesw5-dev \
         libwxgtk3.0-gtk3-0v5 \
-        libwxgtk3.0-gtk3-dev && \
+        libwxgtk3.0-gtk3-dev \
+        valgrind && \
     rm -rf /var/lib/apt/lists/*
 
 # https://code.visualstudio.com/docs/remote/containers-advanced#_creating-a-nonroot-user
