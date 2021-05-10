@@ -10,6 +10,8 @@ RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends \
         build-essential \
         cmake \
+        git \
+        gdb \
         libncurses5-dev \
         libncursesw5-dev \
         libwxgtk3.0-gtk3-0v5 \
