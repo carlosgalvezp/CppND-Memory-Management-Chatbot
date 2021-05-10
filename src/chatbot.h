@@ -31,10 +31,12 @@ public:
     //// STUDENT CODE
     ////
     ChatBot(ChatBot const& rhs);
-    ChatBot(ChatBot&& rhs);
+    ChatBot(ChatBot&& rhs) noexcept;
 
     ChatBot& operator=(ChatBot const& rhs);
-    ChatBot& operator=(ChatBot&& rhs);
+    ChatBot& operator=(ChatBot&& rhs) noexcept;
+
+    friend void swap(ChatBot& lhs, ChatBot& rhs) noexcept;
 
     ////
     //// EOF STUDENT CODE
@@ -49,5 +51,7 @@ public:
     // communication
     void ReceiveMessageFromUser(std::string message);
 };
+
+void swap(ChatBot& lhs, ChatBot& rhs) noexcept;
 
 #endif /* CHATBOT_H_ */

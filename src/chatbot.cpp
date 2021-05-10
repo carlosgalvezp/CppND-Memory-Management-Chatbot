@@ -46,52 +46,44 @@ ChatBot::ChatBot(ChatBot const& rhs):
     std::cout << "ChatBot Copy Constructor" << std::endl;
 }
 
-ChatBot::ChatBot(ChatBot&& rhs) :
-    _image(std::move(rhs._image)),
-    _currentNode(rhs._currentNode),
-    _rootNode(rhs._rootNode),
-    _chatLogic(rhs._chatLogic)
+ChatBot::ChatBot(ChatBot&& rhs) noexcept :
+    _image(nullptr),
+    _currentNode(nullptr),
+    _rootNode(nullptr),
+    _chatLogic(nullptr)
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
 
-    rhs._image = nullptr;
-    rhs._currentNode = nullptr;
-    rhs._rootNode = nullptr;
-    rhs._chatLogic = nullptr;
+    swap(*this, rhs);
 }
 
 ChatBot& ChatBot::operator=(ChatBot const& rhs)
 {
     std::cout << "ChatBot Copy Assignment Operator" << std::endl;
 
-    if (this != &rhs)
-    {
-        _image = std::make_unique<wxBitmap>(*rhs._image);
-        _currentNode = rhs._currentNode;
-        _rootNode = rhs._rootNode;
-        _chatLogic = rhs._chatLogic;
-    }
+    ChatBot tmp(rhs);
+    swap(*this, tmp);
     return *this;
 }
 
-ChatBot& ChatBot::operator=(ChatBot&& rhs)
+ChatBot& ChatBot::operator=(ChatBot&& rhs) noexcept
 {
     std::cout << "ChatBot Move Assignment Operator" << std::endl;
 
-    if (this != &rhs)
-    {
-        _image = std::move(rhs._image);
-        _currentNode = rhs._currentNode;
-        _rootNode = rhs._rootNode;
-        _chatLogic = rhs._chatLogic;
-
-        rhs._image = nullptr;
-        rhs._currentNode = nullptr;
-        rhs._rootNode = nullptr;
-        rhs._chatLogic = nullptr;
-    }
+    swap(*this, rhs);
     return *this;
 }
+
+void swap(ChatBot& lhs, ChatBot& rhs) noexcept
+{
+    using std::swap;
+
+    swap(lhs._image,       rhs._image);
+    swap(lhs._currentNode, rhs._currentNode);
+    swap(lhs._rootNode,    rhs._rootNode);
+    swap(lhs._chatLogic,   rhs._chatLogic);
+}
+
 ////
 //// EOF STUDENT CODE
 
