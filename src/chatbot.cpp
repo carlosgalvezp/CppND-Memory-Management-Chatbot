@@ -11,10 +11,6 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
-    // invalidate data handles
-    _image = nullptr;
-    _chatLogic = nullptr;
-    _rootNode = nullptr;
 }
 
 // constructor WITH memory allocation
@@ -45,6 +41,7 @@ ChatBot::ChatBot(ChatBot&& rhs) noexcept
     std::cout << "ChatBot Move Constructor" << std::endl;
 
     swap(*this, rhs);
+    _chatLogic->SetChatbotHandle(this);
 }
 
 ChatBot& ChatBot::operator=(ChatBot const& rhs)
@@ -61,6 +58,7 @@ ChatBot& ChatBot::operator=(ChatBot&& rhs) noexcept
     std::cout << "ChatBot Move Assignment Operator" << std::endl;
 
     swap(*this, rhs);
+    _chatLogic->SetChatbotHandle(this);
     return *this;
 }
 
