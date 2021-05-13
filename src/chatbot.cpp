@@ -18,16 +18,10 @@ ChatBot::ChatBot()
 }
 
 // constructor WITH memory allocation
-ChatBot::ChatBot(std::string filename)
+ChatBot::ChatBot(std::string filename) :
+    _image(std::make_unique<wxBitmap>(filename, wxBITMAP_TYPE_PNG))
 {
     std::cout << "ChatBot Constructor" << std::endl;
-
-    // invalidate data handles
-    _chatLogic = nullptr;
-    _rootNode = nullptr;
-
-    // load image into heap memory
-    _image = std::make_unique<wxBitmap>(filename, wxBITMAP_TYPE_PNG);
 }
 
 ChatBot::~ChatBot()
@@ -46,11 +40,7 @@ ChatBot::ChatBot(ChatBot const& rhs):
     std::cout << "ChatBot Copy Constructor" << std::endl;
 }
 
-ChatBot::ChatBot(ChatBot&& rhs) noexcept :
-    _image(nullptr),
-    _currentNode(nullptr),
-    _rootNode(nullptr),
-    _chatLogic(nullptr)
+ChatBot::ChatBot(ChatBot&& rhs) noexcept
 {
     std::cout << "ChatBot Move Constructor" << std::endl;
 

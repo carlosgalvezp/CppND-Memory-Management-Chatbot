@@ -12,12 +12,12 @@ class ChatBot
 {
 private:
     // data handles (owned)
-    std::unique_ptr<wxBitmap> _image; // avatar image
+    std::unique_ptr<wxBitmap> _image{}; // avatar image
 
     // data handles (not owned)
-    GraphNode *_currentNode;
-    GraphNode *_rootNode;
-    ChatLogic *_chatLogic;
+    GraphNode* _currentNode{};
+    GraphNode* _rootNode{};
+    ChatLogic* _chatLogic{};
 
     // proprietary functions
     int ComputeLevenshteinDistance(std::string s1, std::string s2);
